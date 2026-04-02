@@ -7,19 +7,22 @@ namespace LoginScreen
             InitializeComponent();
         }
 
-        string myID = "admin"; 
+        string myID = "admin";
         string myPW = "superman";
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string inputID = txtID.Text; 
+            string inputID = txtID.Text;
             string inputPW = txtPW.Text;
-            if (inputID == myID && inputPW == myPW) 
-            { 
-                MessageBox.Show("로그인성공!"); 
-            }
-            else 
+            if (inputID == myID && inputPW == myPW)
             {
-                MessageBox.Show("로그인실패~"); 
+                MessageBox.Show("로그인성공!");
+                lblErrorMsg.Visible = false;
+            }
+            else
+            {
+                //MessageBox.Show("로그인실패~"); 
+                //MessageBox.Show("아이디 또는 패스워드가 잘못됐습니다","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblErrorMsg.Visible = true;
             }
         }
 
@@ -27,7 +30,7 @@ namespace LoginScreen
         {
             if (txtID.Text == "아이디")
             {
-                txtID.Text = ""; 
+                txtID.Text = "";
                 txtID.ForeColor = Color.Black;
             }
         }
@@ -46,8 +49,8 @@ namespace LoginScreen
         {
             if (txtPW.Text == "패스워드")
             {
-                txtPW.Text = ""; 
-                txtPW.ForeColor = Color.Black;    
+                txtPW.Text = "";
+                txtPW.ForeColor = Color.Black;
                 txtPW.UseSystemPasswordChar = true;
             }
         }
@@ -59,6 +62,25 @@ namespace LoginScreen
                 txtPW.UseSystemPasswordChar = false;
                 txtPW.Text = "패스워드";
                 txtPW.ForeColor = Color.Silver;
+            }
+        }
+
+        private void txtID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // 기본비프음방지txtPW.Focus(); // 패스워드입력창이포커스를갖게끔
+                txtPW.Focus();
+
+            }
+        }
+
+        private void txtPW_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // 기본비프음방지btnLogin.PerformClick(); // 버튼이눌린것처럼만들기
+                btnLogin.PerformClick();
             }
         }
     }
